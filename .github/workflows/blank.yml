@@ -1,4 +1,4 @@
-name: Read File Content
+name: User Selection Pipeline
 
 on:
   push:
@@ -6,23 +6,26 @@ on:
       - main
 
 jobs:
-  read-file-content:
+  display-file-content:
     runs-on: ubuntu-latest
+    outputs:
+      file_content: ${{ steps.display-content.outputs.file_content }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name: Read File Content
-        id: read-content
-        run: |
-          file_content=$(cat items.txt)  # Update the file path as needed
-          echo "{name}={file_content::$file_content}" >> $GITHUB_OUTPUT
 
-  display-file-content:
-    needs: read-file-content
+      - name: Display File Content
+        id: display-content
+        run: |
+          cat items.txt  # Update the file path as needed
+          echo "::set-output name=file_content::$(cat items.txt)"
+
+  use-selected-item:
+    needs: display-file-content
     runs-on: ubuntu-latest
     steps:
-      - name: Display File Content
+      - name: Use Selected Item
         run: |
+          file_content="${{ needs.display-file-content.outputs.file_content }}"
           echo "File Content:"
-          echo "${{ needs.read-file-content.outputs.file_content }}"
+          echo "$file_content"
