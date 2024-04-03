@@ -12,7 +12,7 @@ jobs:
       file_content: ${{ steps.display-content.outputs.file_content }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Display File Content
         id: display-content
