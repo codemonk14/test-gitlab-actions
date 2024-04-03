@@ -15,10 +15,10 @@ jobs:
       - name: Display File Content
         id: display-content
         run: |
-          # Assuming your file is named "items.txt"
-          cat items.txt
+          cat items.txt  # Update the file path as needed
           echo "Please select an item from the list:"
           read selected_item
+          echo "Selected item: $selected_item"
 
           echo "::set-output name=selected_item::$selected_item"
 
