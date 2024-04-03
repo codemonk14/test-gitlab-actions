@@ -26,8 +26,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const content = process.env.file_content;
-            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-            const context = github.context;
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN)
             const repo = context.repo;
             await octokit.checks.update({
               owner: repo.owner,
