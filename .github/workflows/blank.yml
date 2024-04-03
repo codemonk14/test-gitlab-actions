@@ -16,7 +16,7 @@ jobs:
         id: read-content
         run: |
           file_content=$(cat items.txt)  # Update the file path as needed
-          echo "::set-output name=file_content::$file_content"
+          echo "{name}={file_content::$file_content}" >> $GITHUB_OUTPUT
 
   display-file-content:
     needs: read-file-content
