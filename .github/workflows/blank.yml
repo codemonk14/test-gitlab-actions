@@ -12,6 +12,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: List Files
+        run: ls -l
+
       - name: Display File Content
         id: display-content
         run: |
@@ -21,6 +24,11 @@ jobs:
           echo "Selected item: $selected_item"
 
           echo "::set-output name=selected_item::$selected_item"
+
+      - name: Debug Outputs
+        run: |
+          echo "Debug Outputs:"
+          echo "Selected item: ${{ needs.display-content.outputs.selected_item }}"
 
   use-selected-item:
     needs: display-file-content
