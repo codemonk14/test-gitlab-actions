@@ -19,7 +19,25 @@ jobs:
         run: |
           cat items.txt  # Update the file path as needed
           echo "{file_content}={$(cat items.txt)}" >> $GITHUB_OUTPUT
-
+          
+      - name: Show File Content in GitHub UI
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const content = process.env.file_content;
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            const context = github.context;
+            const repo = context.repo;
+            await octokit.checks.update({
+              owner: repo.owner,
+              repo: repo.repo,
+              check_run_id: context.runId,
+              output: {
+                title: "File Content",
+                summary: content,
+              },
+            });
   use-selected-item:
     needs: display-file-content
     runs-on: ubuntu-latest
@@ -29,3 +47,4 @@ jobs:
           file_content="${{ needs.display-file-content.outputs.file_content }}"
           echo "File Content:"
           echo "$file_content"
+
