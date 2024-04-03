@@ -1,0 +1,33 @@
+name: User Selection Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  display-file-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Display File Content
+        id: display-content
+        run: |
+          # Assuming your file is named "items.txt"
+          cat items.txt
+          echo "Please select an item from the list:"
+          read selected_item
+
+          echo "::set-output name=selected_item::$selected_item"
+
+  use-selected-item:
+    needs: display-file-content
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Selected Item
+        run: |
+          selected_item="${{ needs.display-file-content.outputs.selected_item }}"
+          echo "Selected item: $selected_item"
+          # Use the selected item in your next steps or commands
