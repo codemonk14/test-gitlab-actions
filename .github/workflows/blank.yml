@@ -1,4 +1,4 @@
-name: User Selection Pipeline
+name: Read File Content
 
 on:
   push:
@@ -6,36 +6,23 @@ on:
       - main
 
 jobs:
-  display-file-content:
+  read-file-content:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-      - name: List Files
-        run: ls -l
-
-      - name: Display File Content
-        id: display-content
+      
+      - name: Read File Content
+        id: read-content
         run: |
-          cat items.txt  # Update the file path as needed
-          echo "Please select an item from the list:"
-          read selected_item
-          echo "Selected item: $selected_item"
+          file_content=$(cat items.txt)  # Update the file path as needed
+          echo "::set-output name=file_content::$file_content"
 
-          echo "::set-output name=selected_item::$selected_item"
-
-      - name: Debug Outputs
-        run: |
-          echo "Debug Outputs:"
-          echo "Selected item: ${{ needs.display-content.outputs.selected_item }}"
-
-  use-selected-item:
-    needs: display-file-content
+  display-file-content:
+    needs: read-file-content
     runs-on: ubuntu-latest
     steps:
-      - name: Use Selected Item
+      - name: Display File Content
         run: |
-          selected_item="${{ needs.display-file-content.outputs.selected_item }}"
-          echo "Selected item: $selected_item"
-          # Use the selected item in your next steps or commands
+          echo "File Content:"
+          echo "${{ needs.read-file-content.outputs.file_content }}"
