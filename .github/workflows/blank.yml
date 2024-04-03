@@ -18,7 +18,7 @@ jobs:
         id: display-content
         run: |
           cat items.txt  # Update the file path as needed
-          echo "::set-output name=file_content::$(cat items.txt)"
+          echo "{file_content}={$(cat items.txt)}" >> $GITHUB_OUTPUT
 
   use-selected-item:
     needs: display-file-content
