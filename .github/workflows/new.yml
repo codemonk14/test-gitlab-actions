@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
       - name: print
         run: |
-          test_path=${{ inputs.env }}
+          test_path=\${{ inputs.env }}
           echo "Testing path: $test_path"
           
   display-file-content-test2:
