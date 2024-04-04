@@ -1,4 +1,4 @@
-name: User Selection Pipeline
+name: User Selection Pipeline new
 
 on:
   workflow_dispatch:
