@@ -4,16 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       env:
-        type: choice
-        options: 
-          - test
-          - test2
+        type: string
+
+          
   
 
 jobs:
   display-file-content-test:
     runs-on: ubuntu-latest
-    if: ${{  inputs.env == 'test' }}
+    if: ${{  inputs.env == '$test' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
