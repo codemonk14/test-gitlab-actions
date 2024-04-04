@@ -11,9 +11,17 @@ on:
   
 
 jobs:
-  display-file-content:
+  display-file-content-test:
     runs-on: ubuntu-latest
     if: ${{  inputs.env == 'test' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+    
+  display-file-content-test2:
+    runs-on: ubuntu-latest
+    if: ${{  inputs.env == 'test2' }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
