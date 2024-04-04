@@ -13,6 +13,7 @@ on:
 jobs:
   display-file-content:
     runs-on: ubuntu-latest
+    if: ${{  input.env == 'test' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
