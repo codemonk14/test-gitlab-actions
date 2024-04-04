@@ -16,11 +16,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-    
+      - name: print
+        run: |
+          test_path=${{ inputs.env }}
+          echo "Testing path: $test_path"
+          run_tests_command "$test_path"
+          
   display-file-content-test2:
     runs-on: ubuntu-latest
-    if: ${{  inputs.env == 'test2' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+      - name: print
+        run: |
+          test_path=${{ inputs.env }}
+          echo "Testing path: $test_path"
+          run_tests_command "$test_path"
