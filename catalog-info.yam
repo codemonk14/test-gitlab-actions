@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: test-gitlab-actions
+  annotations:
+    github.com/project-slug: codemonk14/test-gitlab-actions
+spec:
+  type: other
+  lifecycle: unknown
+  owner: nikhil.linga143
